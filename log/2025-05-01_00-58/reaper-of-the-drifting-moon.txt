@@ -1,0 +1,22 @@
+📚 Log for: reaper-of-the-drifting-moon
+
+[INFO] Created folder for reaper-of-the-drifting-moon
+[Chapter 1] ❌ Error: Message: invalid session id
+Stacktrace:
+	GetHandleVerifier [0x00007FF6C367EFA5+77893]
+	GetHandleVerifier [0x00007FF6C367F000+77984]
+	(No symbol) [0x00007FF6C3448FEC]
+	(No symbol) [0x00007FF6C348F44F]
+	(No symbol) [0x00007FF6C34C6FF2]
+	(No symbol) [0x00007FF6C34C1A02]
+	(No symbol) [0x00007FF6C34C0AC9]
+	(No symbol) [0x00007FF6C3415AB5]
+	GetHandleVerifier [0x00007FF6C3937B6D+2931725]
+	GetHandleVerifier [0x00007FF6C3932132+2908626]
+	GetHandleVerifier [0x00007FF6C39500F3+3031443]
+	GetHandleVerifier [0x00007FF6C36991EA+184970]
+	GetHandleVerifier [0x00007FF6C36A086F+215311]
+	(No symbol) [0x00007FF6C3414B2C]
+	GetHandleVerifier [0x00007FF6C3A42518+4023736]
+	BaseThreadInitThunk [0x00007FF872117374+20]
+	RtlUserThreadStart [0x00007FF87231CC91+33]

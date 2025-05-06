@@ -1,0 +1,159 @@
+
+.mainChapter {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 80%;
+  min-height: 70vh;
+  flex-direction: column;
+  color:white;
+  position:relative;
+  &-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    &_tree {
+    background-color: #141617;
+    height: 4vh;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 5px 5px 5px 15px;
+    margin: 10px 0 10px 0px ;
+    }
+    &-body {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      height: 60vh;
+      background-color: #141617;
+      font-size: 0.7rem;
+      box-sizing: border-box;
+      padding: 15px;
+      
+      &-boxLeftRight {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        &-leftSide {
+          width: 20%;
+          display: flex;
+          flex-direction: column;
+          gap:10px;
+          &_imageLogo {
+            width: 100%;
+            height: 30vh;
+            img {
+              width: 100% ;
+              height: 100%;
+            }
+          }
+          &_rating {
+  
+            height: 4vh;
+            background-color: #212426;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap:5px;
+            
+            
+            img {
+              height: 15px;
+              width: 15px;
+            }
+            &_rateButton {
+              width: 50px;
+              height: 30px;
+              background-color: rgb(65, 13, 13);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 10px;
+              cursor: pointer;
+            }
+          }
+  
+          &_info {
+            height: 5vh;
+            background-color:#212426;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+            border-radius: 5px;
+          }
+        }
+        &-rightSide {
+          width: 80%;
+          
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+          padding: 0 15px 0 15px;
+          gap: 10px;
+          line-height: 1.4rem;
+          &_title {
+            font-size: 1.6rem;
+            color:white;
+          }
+          &_description {
+            font-size: 0.9rem;
+            &_synopsis {
+              color:#766d60;
+            }
+            &_title {
+              color:white;
+            }
+          }
+          &_manwhaDetails {
+            font-size: 0.9rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); // 2 per row
+            gap: 10px;
+            & > div {
+              width: 100%;
+              & > div:last-child {
+                color:#766d60;
+              }
+            }
+          }
+          &_genres {
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap:10px;
+            margin-top:auto;
+            margin-bottom:2px;
+            &_boxes {
+              display: flex;
+              gap:10px;
+              & > div {
+                background-color: #212426;
+                min-width: 45px;
+                padding: 3px 6px;
+                box-sizing: border-box;
+                border-radius: 5px;
+              }
+            }
+          }
+        }
+      }
+      &_keywords {
+        height: 4vh;
+        font-size: 0.8rem;
+        color: #888;
+        background-color: #141617;
+        display: flex;
+        flex-direction: column;
+        border-top:1px solid #1d2121;
+        margin-top:6vh;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+  }
