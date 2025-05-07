@@ -1,6 +1,6 @@
 // ThemeProvider.jsx
 import React, { useState, useEffect } from 'react';
-import mangaData from "../data/mangaData.json"; // adjust path if needed
+import mangaData from "../data/manhwa_metadata.json"; // adjust path if needed
 
 const MyContext = React.createContext();
 
