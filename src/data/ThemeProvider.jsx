@@ -1,10 +1,20 @@
-// ThemeProvider.jsx
-import React, { useState, useEffect } from 'react';
-import mangaData from "../data/manga_metadata.json"; // adjust path if needed
+import React, { useState, useEffect, createContext } from 'react';
 
-const MyContext = React.createContext();
+const MyContext = createContext();
+const BACKEND_URL = "http://<your-ec2-ip>:4000/mangaData.json"; // ← backend must serve this
 
 function ThemeProvider({ children }) {
+  const [mangaData, setMangaData] = useState(null);
+
+  useEffect(() => {
+    fetch(BACKEND_URL)
+      .then(res => res.json())
+      .then(data => setMangaData(data))
+      .catch(err => console.error("❌ Failed to load manga data:", err));
+  }, []);
+
+  if (!mangaData) return <div>Loading...</div>;
+
   return (
     <MyContext.Provider value={{ mangaData }}>
       {children}
