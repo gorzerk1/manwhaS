@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "./chapter.scss";
-import mangaData from "../../mangaData.json";
+import { MyContext } from "../../data/ThemeProvider"; // ✅ adjust path
 
 function capitalizeTitle(title) {
   return title.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
@@ -10,9 +10,12 @@ function capitalizeTitle(title) {
 function Chapter() {
   const { mangaName, chapterNumber } = useParams();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { mangaData } = useContext(MyContext); // ✅ from context
 
   const currentChapterKey = `chapter-${chapterNumber}`;
   const currentManga = mangaData[mangaName];
+  if (!currentManga) return <div className="Chapter">Not found.</div>;
+
   const chapters = Object.keys(currentManga)
     .filter(key => key.startsWith("chapter-"))
     .sort((a, b) => parseInt(b.replace("chapter-", "")) - parseInt(a.replace("chapter-", "")))

@@ -1,7 +1,7 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./mainChapter.scss";
-import mangaData from "../../mangaData.json";
+import { MyContext } from "../../data/ThemeProvider"; // ✅ adjust path
 
 function toTitleCase(str) {
   return str.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -10,12 +10,14 @@ function toTitleCase(str) {
 function getLatestDate(chapters) {
   const times = Object.entries(chapters)
     .filter(([key]) => key.startsWith("chapter-"))
-    .map(([_, val]) => val.time?.split(" ")[1]); // get only the date part
+    .map(([_, val]) => val.time?.split(" ")[1]);
   return times.length > 0 ? times.sort().reverse()[0] : "--";
 }
 
 function MainChapter() {
   const { mangaName } = useParams();
+  const navigate = useNavigate();
+  const { mangaData } = useContext(MyContext); // ✅ from context
   const data = mangaData[mangaName];
 
   if (!data) return <div className="mainChapter">Not found.</div>;
@@ -24,7 +26,12 @@ function MainChapter() {
     <div className="mainChapter">
       <div className="mainChapter-container">
         <div className="mainChapter-container-content">
-          <div className="mainChapter-container_tree">{`ManwhaSite > ${toTitleCase(mangaName)}`}</div>
+          <div className="mainChapter-container_tree">
+            <div className="mainChapter-container_tree_manwhaName" onClick={() => navigate("/")}> ManwhaSite </div>
+            {" > "}
+            {`${toTitleCase(mangaName)}`}
+          </div>
+
           <div className="mainChapter-container-body">
             <div className="mainChapter-container-body-boxLeftRight">
               <div className="mainChapter-container-body-boxLeftRight-leftSide">

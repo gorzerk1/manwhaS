@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './cards.scss';
-import mangaData from '../../mangaData.json';
+import { MyContext } from '../../data/ThemeProvider'; // ✅ adjust path
 
 function formatTitle(name) {
   return name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
@@ -43,15 +43,16 @@ function formatChapters(chapterData) {
   }));
 }
 
-const mangaList = Object.entries(mangaData).map(([key, value]) => ({
-  key,
-  title: formatTitle(key),
-  image: `/${value.imagelogo}`,
-  chapters: formatChapters(value)
-}));
-
 function Cards() {
   const navigate = useNavigate();
+  const { mangaData } = useContext(MyContext); // ✅ from context
+
+  const mangaList = Object.entries(mangaData).map(([key, value]) => ({
+    key,
+    title: formatTitle(key),
+    image: `/${value.imagelogo}`,
+    chapters: formatChapters(value)
+  }));
 
   return (
     <div className="Cards">

@@ -1,13 +1,14 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./scrollChapter.scss";
-import mangaData from "../../mangaData.json";
+import { MyContext } from "../../data/ThemeProvider";
 
 function ScrollChapter() {
   const scrollRef = useRef(null);
   const { mangaName } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const { mangaData } = useContext(MyContext);
 
   useEffect(() => {
     const el = scrollRef.current;

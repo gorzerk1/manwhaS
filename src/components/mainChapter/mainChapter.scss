@@ -20,6 +20,10 @@
     align-items: center;
     padding: 5px 5px 5px 15px;
     margin: 10px 0 10px 0px ;
+      &_manwhaName {
+        margin-right: 5px;
+        cursor: pointer;
+      }
     }
     &-body {
       display: flex;
