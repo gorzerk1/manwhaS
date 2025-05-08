@@ -14,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainChapter />} />
         <Route path="/readchapter/:mangaName/chapter/:chapterNumber" element={<MainChapter />} />
+        <Route path="/series/:mangaName" element={<MainChapter />} />
       </Routes>
       </BrowserRouter>
     </div>
