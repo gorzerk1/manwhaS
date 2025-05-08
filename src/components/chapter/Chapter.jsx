@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "./chapter.scss";
 
 function capitalizeTitle(title) {
+  if (!title) return '';
   return title.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 }
 
