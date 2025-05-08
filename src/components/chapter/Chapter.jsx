@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./chapter.scss";
-import { MyContext } from "../../data/ThemeProvider"; // ✅ adjust path
 
 function capitalizeTitle(title) {
   return title.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
@@ -10,18 +9,39 @@ function capitalizeTitle(title) {
 function Chapter() {
   const { mangaName, chapterNumber } = useParams();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { mangaData } = useContext(MyContext); // ✅ from context
+  const [images, setImages] = useState([]);
+  const [chapters, setChapters] = useState([]);
 
   const currentChapterKey = `chapter-${chapterNumber}`;
-  const currentManga = mangaData[mangaName];
-  if (!currentManga) return <div className="Chapter">Not found.</div>;
 
-  const chapters = Object.keys(currentManga)
-    .filter(key => key.startsWith("chapter-"))
-    .sort((a, b) => parseInt(b.replace("chapter-", "")) - parseInt(a.replace("chapter-", "")))
-    .reverse();
+  useEffect(() => {
+    const fetchChapter = async () => {
+      try {
+        const res = await fetch(`/data/jsonFiles/${mangaName}/${currentChapterKey}.json`);
+        const data = await res.json();
+        setImages(data.images || []);
+      } catch (err) {
+        console.error("❌ Failed to fetch chapter JSON", err);
+      }
+    };
 
-  const images = currentManga?.[currentChapterKey]?.images || [];
+    const fetchChapterList = async () => {
+      try {
+        const res = await fetch(`/data/jsonFiles/${mangaName}`);
+        const files = await res.json();
+        const list = files
+          .filter(name => name.startsWith("chapter-") && name.endsWith(".json"))
+          .map(name => name.replace(".json", ""))
+          .sort((a, b) => parseInt(a.replace("chapter-", "")) - parseInt(b.replace("chapter-", "")));
+        setChapters(list);
+      } catch (err) {
+        console.error("❌ Failed to fetch chapter list", err);
+      }
+    };
+
+    fetchChapter();
+    fetchChapterList();
+  }, [mangaName, chapterNumber]);
 
   return (
     <div className="Chapter">
@@ -30,6 +50,7 @@ function Chapter() {
           <img src="/arrow.png" alt="Scroll Up" />
         </div>
       </div>
+
       <div className="Chapter-container">
         <div className="Chapter-container-title">
           {capitalizeTitle(mangaName)}
@@ -51,7 +72,7 @@ function Chapter() {
                     key={chap}
                     className="Chapter-container-list_chapterList_dropdown_item"
                     onClick={() => {
-                      window.location.href = `/series/${mangaName}/chapter/${chap.replace("chapter-", "")}`;
+                      window.location.href = `/readchapter/${mangaName}/chapter/${chap.replace("chapter-", "")}`;
                     }}
                   >
                     {chap.replace("chapter-", "Chapter ")}

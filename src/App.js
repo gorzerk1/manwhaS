@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Cards from './components/cards/Cards';
+import Chapter from './components/chapter/Chapter';
+
 
 
 
@@ -10,7 +11,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Cards />} />
+        <Route path="/" element={<Chapter />} />
 
       </Routes>
       </BrowserRouter>
