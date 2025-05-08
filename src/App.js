@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.scss';
+import FrontPage from './container/FrontPage';
+import Series from './container/Series';
+import ReadChapter from './container/ReadChapter';
 import MainChapter from './components/mainChapter/MainChapter';
 import ScrollChapter from './components/scrollChapter/ScrollChapter';
-
-
-
 
 
 function App() {
@@ -13,9 +13,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ScrollChapter />} />
-        <Route path="/readchapter/:mangaName/chapter/:chapterNumber" element={<ScrollChapter />} />
-        <Route path="/series/:mangaName" element={<ScrollChapter />} />
+        <Route path="/" element={<FrontPage />} />
+        <Route path="/series" element={<Series />} />
+        <Route path="/readchapter/:mangaName/chapter/:chapterNumber" element={<ReadChapter />} />
+        <Route path="/series/:mangaName" element={<Series />} />
+        <Route path="/test" element={<ScrollChapter />} />
       </Routes>
       </BrowserRouter>
     </div>
