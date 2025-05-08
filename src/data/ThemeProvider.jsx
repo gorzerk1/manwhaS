@@ -1,22 +1,31 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect } from "react";
 
-const MyContext = createContext();
-const BACKEND_URL = "http://<your-ec2-ip>:4000/mangaData.json"; // ← backend must serve this
+const MyContext = React.createContext();
 
 function ThemeProvider({ children }) {
-  const [mangaData, setMangaData] = useState(null);
+  const [descriptions, setDescriptions] = useState({});
 
   useEffect(() => {
-    fetch(BACKEND_URL)
+    fetch("/data/jsonFiles") // must list folders
       .then(res => res.json())
-      .then(data => setMangaData(data))
-      .catch(err => console.error("❌ Failed to load manga data :", err));
+      .then(async folders => {
+        const allDescriptions = {};
+
+        await Promise.all(
+          folders.map(async (folder) => {
+            const res = await fetch(`/data/jsonFiles/${folder}/manwhaDescription.json`);
+            const data = await res.json();
+            allDescriptions[folder] = data;
+          })
+        );
+
+        setDescriptions(allDescriptions);
+      })
+      .catch(err => console.error("Failed to load descriptions", err));
   }, []);
 
-  if (!mangaData) return <div>Loading...</div>;
-
   return (
-    <MyContext.Provider value={{ mangaData }}>
+    <MyContext.Provider value={{ descriptions }}>
       {children}
     </MyContext.Provider>
   );
