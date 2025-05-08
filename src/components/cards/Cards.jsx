@@ -65,7 +65,7 @@ function Cards() {
             return {
               key: folder,
               title: data.name || folder,
-              image: `/data/jsonFiles/${folder}/${data.imagelogo}`,
+              image: `/${data.imagelogo}`, // ✅ uses /public path
               chapters
             };
           } catch (err) {
