@@ -26,18 +26,11 @@ function Chapter() {
       }
     };
 
-    const fetchChapterList = async () => {
-      try {
-        const res = await fetch(`/data/jsonFiles/${mangaName}/index.json`);
-        const list = await res.json(); // expects a pre-generated list of chapters
-        setChapters(list);
-      } catch (err) {
-        console.error("❌ Failed to fetch chapter list", err);
-      }
-    };
+    // Dummy chapter list 1–5
+    const dummyChapters = ["chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5"];
+    setChapters(dummyChapters);
 
     fetchChapter();
-    fetchChapterList();
   }, [mangaName, chapterNumber]);
 
   return (
