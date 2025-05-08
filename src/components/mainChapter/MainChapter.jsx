@@ -1,26 +1,36 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./mainChapter.scss";
-import { MyContext } from "../../data/ThemeProvider"; // ✅ adjust path
 
 function toTitleCase(str) {
   return str.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function getLatestDate(chapters) {
-  const times = Object.entries(chapters)
-    .filter(([key]) => key.startsWith("chapter-"))
-    .map(([_, val]) => val.time?.split(" ")[1]);
-  return times.length > 0 ? times.sort().reverse()[0] : "--";
+function getLatestDate(uploadTime = []) {
+  const last = uploadTime[uploadTime.length - 1];
+  return last?.time?.split(" ")[1] || "--";
 }
 
 function MainChapter() {
   const { mangaName } = useParams();
   const navigate = useNavigate();
-  const { mangaData } = useContext(MyContext); // ✅ from context
-  const data = mangaData[mangaName];
+  const [data, setData] = useState(null);
 
-  if (!data) return <div className="mainChapter">Not found.</div>;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/data/jsonFiles/${mangaName}/manwhaDescription.json`);
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error("❌ Failed to fetch manwha description", err);
+      }
+    };
+
+    fetchData();
+  }, [mangaName]);
+
+  if (!data) return <div className="mainChapter">Loading...</div>;
 
   return (
     <div className="mainChapter">
@@ -29,14 +39,14 @@ function MainChapter() {
           <div className="mainChapter-container_tree">
             <div className="mainChapter-container_tree_manwhaName" onClick={() => navigate("/")}> ManwhaSite </div>
             {" > "}
-            {`${toTitleCase(mangaName)}`}
+            {toTitleCase(mangaName)}
           </div>
 
           <div className="mainChapter-container-body">
             <div className="mainChapter-container-body-boxLeftRight">
               <div className="mainChapter-container-body-boxLeftRight-leftSide">
                 <div className="mainChapter-container-body-boxLeftRight-leftSide_imageLogo">
-                  <img src={`/${data.imagelogo}`} alt="" />
+                  <img src={`/data/jsonFiles/${mangaName}/${data.imagelogo}`} alt="" />
                 </div>
                 <div className="mainChapter-container-body-boxLeftRight-leftSide_rating">
                   <img src="/fullStar.png" alt="" />
@@ -59,12 +69,12 @@ function MainChapter() {
 
               <div className="mainChapter-container-body-boxLeftRight-rightSide">
                 <div className="mainChapter-container-body-boxLeftRight-rightSide_title">
-                  {toTitleCase(mangaName)}
+                  {toTitleCase(data.name)}
                 </div>
 
                 <div className="mainChapter-container-body-boxLeftRight-rightSide_description">
                   <div className="mainChapter-container-body-boxLeftRight-rightSide_description_title">
-                    Synopsis {toTitleCase(mangaName)}
+                    Synopsis {toTitleCase(data.name)}
                   </div>
                   <div className="mainChapter-container-body-boxLeftRight-rightSide_description_synopsis">
                     {data.synopsis || "--"}
@@ -82,7 +92,7 @@ function MainChapter() {
                   </div>
                   <div>
                     <div>Updated On</div>
-                    <div>{getLatestDate(data)}</div>
+                    <div>{getLatestDate(data.uploadTime)}</div>
                   </div>
                 </div>
 
