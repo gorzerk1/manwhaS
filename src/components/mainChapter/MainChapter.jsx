@@ -46,7 +46,7 @@ function MainChapter() {
             <div className="mainChapter-container-body-boxLeftRight">
               <div className="mainChapter-container-body-boxLeftRight-leftSide">
                 <div className="mainChapter-container-body-boxLeftRight-leftSide_imageLogo">
-                  <img src={`/data/jsonFiles/${mangaName}/${data.imagelogo}`} alt="" />
+                  <img src={`/${data.imagelogo}`} alt="" />
                 </div>
                 <div className="mainChapter-container-body-boxLeftRight-leftSide_rating">
                   <img src="/fullStar.png" alt="" />
