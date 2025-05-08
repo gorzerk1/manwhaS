@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Chapter />} />
-
+        <Route path="/readchapter/:mangaName/chapter/:chapterNumber" element={<Chapter />} />
       </Routes>
       </BrowserRouter>
     </div>
