@@ -1,14 +1,30 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./scrollChapter.scss";
-import { MyContext } from "../../data/ThemeProvider";
+
+function toTitleCase(str) {
+  return str.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
 
 function ScrollChapter() {
   const scrollRef = useRef(null);
   const { mangaName } = useParams();
   const navigate = useNavigate();
+  const [data, setData] = useState(null);
   const [search, setSearch] = useState("");
-  const { mangaData } = useContext(MyContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/data/jsonFiles/${mangaName}/manwhaDescription.json`);
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error("❌ Failed to fetch manwhaDescription.json", err);
+      }
+    };
+    fetchData();
+  }, [mangaName]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -21,22 +37,19 @@ function ScrollChapter() {
     return () => el && el.removeEventListener("wheel", stopScroll);
   }, []);
 
-  const manga = mangaData[mangaName];
-  if (!manga) return <div>not found</div>;
+  if (!data) return <div>Loading...</div>;
 
-  const chapters = Object.entries(manga)
-    .filter(([key]) => key.startsWith("chapter-"))
-    .map(([key, val]) => {
-      const number = parseInt(key.replace("chapter-", ""));
-      const date = val.time?.split(" ")[1] || "unknown date";
-      return { number, date };
-    })
-    .sort((a, b) => b.number - a.number); // Descending
+  const title = toTitleCase(data.name || mangaName);
+  const chapters = (data.uploadTime || [])
+    .filter(c => c.chapter && c.time)
+    .map(c => ({
+      number: c.chapter,
+      date: c.time?.split(" ")[1] || "unknown"
+    }))
+    .sort((a, b) => b.number - a.number);
 
   const lastChapter = chapters[0]?.number || "-";
   const firstChapter = chapters[chapters.length - 1]?.number || "-";
-
-  const title = mangaName.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
 
   const filteredChapters = chapters.filter(ch =>
     ch.number.toString().includes(search)
