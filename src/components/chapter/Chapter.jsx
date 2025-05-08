@@ -11,7 +11,13 @@ function Chapter() {
   const { mangaName, chapterNumber } = useParams();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [images, setImages] = useState([]);
-  const [chapters, setChapters] = useState([]);
+  const [chapters, setChapters] = useState([
+    "chapter-1",
+    "chapter-2",
+    "chapter-3",
+    "chapter-4",
+    "chapter-5"
+  ]);
 
   const currentChapterKey = `chapter-${chapterNumber}`;
 
@@ -25,10 +31,6 @@ function Chapter() {
         console.error("❌ Failed to fetch chapter JSON", err);
       }
     };
-
-    // Dummy chapter list 1–5
-    const dummyChapters = ["chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5"];
-    setChapters(dummyChapters);
 
     fetchChapter();
   }, [mangaName, chapterNumber]);
