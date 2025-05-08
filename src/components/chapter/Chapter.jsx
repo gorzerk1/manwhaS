@@ -28,12 +28,8 @@ function Chapter() {
 
     const fetchChapterList = async () => {
       try {
-        const res = await fetch(`/data/jsonFiles/${mangaName}`);
-        const files = await res.json();
-        const list = files
-          .filter(name => name.startsWith("chapter-") && name.endsWith(".json"))
-          .map(name => name.replace(".json", ""))
-          .sort((a, b) => parseInt(a.replace("chapter-", "")) - parseInt(b.replace("chapter-", "")));
+        const res = await fetch(`/data/jsonFiles/${mangaName}/index.json`);
+        const list = await res.json(); // expects a pre-generated list of chapters
         setChapters(list);
       } catch (err) {
         console.error("❌ Failed to fetch chapter list", err);
