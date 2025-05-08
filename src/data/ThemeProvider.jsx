@@ -10,7 +10,7 @@ function ThemeProvider({ children }) {
     fetch(BACKEND_URL)
       .then(res => res.json())
       .then(data => setMangaData(data))
-      .catch(err => console.error("❌ Failed to load manga data:", err));
+      .catch(err => console.error("❌ Failed to load manga data :", err));
   }, []);
 
   if (!mangaData) return <div>Loading...</div>;
