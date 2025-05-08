@@ -1,13 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './cards.scss';
-import { MyContext } from '../../data/ThemeProvider'; // ✅ adjust path
-
-function formatTitle(name) {
-  return name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-}
 
 function getTimeAgo(timeString) {
+  if (!timeString) return '';
   const [time, date] = timeString.split(' ');
   const [hour, minute] = time.split(':').map(Number);
   const [day, month, year] = date.split('/').map(Number);
@@ -30,29 +26,60 @@ function getTimeAgo(timeString) {
   return "just now";
 }
 
-function formatChapters(chapterData) {
-  const chapters = Object.entries(chapterData)
-    .filter(([key]) => key.startsWith("chapter-"))
-    .sort((a, b) => parseInt(b[0].replace("chapter-", "")) - parseInt(a[0].replace("chapter-", "")))
-    .slice(0, 3);
-
-  return chapters.map(([key, value]) => ({
-    number: key.replace("chapter-", ""),
-    name: key.replace("chapter-", "Chapter "),
-    time: getTimeAgo(value.time)
-  }));
-}
-
 function Cards() {
   const navigate = useNavigate();
-  const { mangaData } = useContext(MyContext); // ✅ from context
+  const [mangaList, setMangaList] = useState([]);
 
-  const mangaList = Object.entries(mangaData).map(([key, value]) => ({
-    key,
-    title: formatTitle(key),
-    image: `/${value.imagelogo}`,
-    chapters: formatChapters(value)
-  }));
+  useEffect(() => {
+    const fetchData = async () => {
+      const folders = [
+        "absolute-regression",
+        "nano-machine",
+        "myst-might-mayhem",
+        "the-return-of-the-crazy-demon",
+        "surviving-as-a-genius-on-borrowed-time",
+        "swordmasters-youngest-son",
+        "the-priest-of-corruption",
+        "reincarnation-of-the-suicidal-battle-god",
+        "sword-fanatic-wanders-through-the-night",
+        "reaper-of-the-drifting-moon",
+        "legend-of-asura-the-venom-dragon",
+        "mookhyang-the-origin"
+      ];
+
+      const list = await Promise.all(
+        folders.map(async (folder) => {
+          try {
+            const res = await fetch(`/data/jsonFiles/${folder}/manwhaDescription.json`);
+            const data = await res.json();
+            const chapters = (data.uploadTime || [])
+              .filter(c => c.chapter && c.time)
+              .slice(-3)
+              .reverse()
+              .map(c => ({
+                number: c.chapter,
+                name: `Chapter ${c.chapter}`,
+                time: getTimeAgo(c.time)
+              }));
+
+            return {
+              key: folder,
+              title: data.name || folder,
+              image: `/data/jsonFiles/${folder}/${data.imagelogo}`,
+              chapters
+            };
+          } catch (err) {
+            console.error(`❌ Failed to fetch data for ${folder}`, err);
+            return null;
+          }
+        })
+      );
+
+      setMangaList(list.filter(Boolean));
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="Cards">
