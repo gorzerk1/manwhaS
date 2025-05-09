@@ -118,7 +118,7 @@ function Cards({ searchQuery }) {
                     onClick={() => navigate(`/readchapter/${manga.key}/chapter/${chap.number}`)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <div className='Cards-container-card_leftBox_chapters_chapter_name'>* {chap.name}</div>
+                    <div className='Cards-container-card_leftBox_chapters_chapter_name'>• {chap.name}</div>
                     <div className='Cards-container-card_leftBox_chapters_chapter_timestamps'>{chap.time}</div>
                   </div>
                 ))}
