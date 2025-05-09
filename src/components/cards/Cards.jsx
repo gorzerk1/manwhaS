@@ -26,7 +26,11 @@ function getTimeAgo(timeString) {
   return "just now";
 }
 
-function Cards() {
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1));
+}
+
+function Cards({ searchQuery }) {
   const navigate = useNavigate();
   const [mangaList, setMangaList] = useState([]);
 
@@ -64,8 +68,8 @@ function Cards() {
 
             return {
               key: folder,
-              title: data.name || folder,
-              image: `/${data.imagelogo}`, // ✅ uses /public path
+              title: toTitleCase(data.name || folder),
+              image: `/${data.imagelogo}`,
               chapters
             };
           } catch (err) {
@@ -81,11 +85,15 @@ function Cards() {
     fetchData();
   }, []);
 
+  const filteredList = mangaList.filter((m) =>
+    m.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="Cards">
       <div className='Cards-title'>Latest Updates</div>
       <div className='Cards-container'>
-        {mangaList.map((manga, i) => (
+        {filteredList.map((manga, i) => (
           <div className='Cards-container-card' key={i}>
             <div
               className='Cards-container-card_picture'

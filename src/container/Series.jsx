@@ -6,9 +6,9 @@ import Navbar from '../components/navbar/Navbar.jsx';
 function Series() {
   return (
     <>
-     <Navbar />
-     <MainChapter />
-     <ScrollChapter/>
+      <Navbar onSearch={() => {}} />
+      <MainChapter />
+      <ScrollChapter />
     </>
   );
 }

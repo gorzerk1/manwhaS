@@ -5,7 +5,7 @@ import Chapter from "../components/chapter/Chapter.jsx";
 function ReadChapter() {
   return (
     <>
-     <Navbar />
+     <Navbar onSearch={() => {}} />
      <Chapter />
     </>
   );
