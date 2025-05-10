@@ -48,7 +48,9 @@ function Cards({ searchQuery }) {
         "sword-fanatic-wanders-through-the-night",
         "reaper-of-the-drifting-moon",
         "legend-of-asura-the-venom-dragon",
-        "mookhyang-the-origin"
+        "mookhyang-the-origin",
+        "kingdom",
+        "magic-emperor"
       ];
 
       const list = await Promise.all(
