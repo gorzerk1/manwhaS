@@ -68,11 +68,18 @@ function Cards({ searchQuery }) {
                 time: getTimeAgo(c.time)
               }));
 
+            const latestRawTime = data.uploadTime?.[data.uploadTime.length - 1]?.time || "";
+            const [h, d] = latestRawTime.split(" ");
+            const [hour, min] = h?.split(":") || [];
+            const [day, month, year] = d?.split("/") || [];
+            const latestTimestamp = new Date(`${year}-${month}-${day}T${hour}:${min}:00`).getTime() || 0;
+
             return {
               key: folder,
               title: toTitleCase(data.name || folder),
               image: `/${data.imagelogo}`,
-              chapters
+              chapters,
+              latestTimestamp
             };
           } catch (err) {
             console.error(`❌ Failed to fetch data for ${folder}`, err);
@@ -81,7 +88,8 @@ function Cards({ searchQuery }) {
         })
       );
 
-      setMangaList(list.filter(Boolean));
+      const sorted = list.filter(Boolean).sort((a, b) => b.latestTimestamp - a.latestTimestamp);
+      setMangaList(sorted);
     };
 
     fetchData();
