@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 
 .scrollChapter {
   display: flex;
@@ -6,19 +8,19 @@
   width: 80%;
   min-height: 70vh;
   flex-direction: column;
-  color:white;
+  color: $color-primary;
   position:relative;
   &-container {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background-color: #141617;
+    background-color: $background-primary;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap:2vh;
     &_title {
-      border-bottom:1px solid #736a5d;
+      border-bottom:1px solid $color-secondary;
       box-sizing: border-box;
       padding: 30px;
       width: 100%;
@@ -29,7 +31,7 @@
       gap:5%;
       width: 100%;
       & > div {
-        background-color: #212426;
+        background-color: $background-thirdy;
         border-radius: 10px;
         width: 40%;
         height: 12vh;
@@ -49,6 +51,12 @@
       & > input {
         width: 100%;
         height: 100%;
+        background-color: rgba(red($color-primary), green($color-primary), blue($color-primary), 0.7);
+        border:5px solid $background-secondary;
+        color:$color-primary;
+        border-radius: 5px;
+        outline: none;
+        box-shadow: none;
       }
     }
     &_allChapters {
@@ -65,7 +73,7 @@
       }
     
       &::-webkit-scrollbar-thumb {
-        background-color: red;
+        background-color: $background-secondary;
         border-radius: 4px;
       }
     
@@ -77,11 +85,11 @@
         height: 70px;
         box-sizing: border-box;
         padding: 15px;
-        border: 1px solid #1d2121;
-        border-left: 6px solid red;
+        border: 1px solid $background-primary;
+        border-left: 6px solid $background-secondary;
         border-radius: 5px;
       
-        background: linear-gradient(to right, #212426 50%, transparent 50%);
+        background: linear-gradient(to right, rgba(255, 255, 255, 0.082) 50%, transparent 50%);
         background-size: 200% 100%;
         background-position: right bottom;
         transition: background-position 0.1s ease;

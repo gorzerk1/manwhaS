@@ -39,7 +39,7 @@ function Chapter() {
         const chapterList = (data.uploadTime || [])
           .filter(entry => entry.chapter)
           .map(entry => `chapter-${entry.chapter}`);
-        setChapters(chapterList);
+        setChapters(chapterList.reverse());
         setMaxChapter(data.chaptersAmount || null);
       } catch (err) {
         console.error("❌ Failed to fetch chapter list", err);
