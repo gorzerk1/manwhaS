@@ -134,6 +134,8 @@ function Cards({ searchQuery }) {
                 ))}
               </div>
             </div>
+                <div className="border-right"></div>
+                <div className="border-left"></div>
           </div>
         ))}
       </div>

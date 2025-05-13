@@ -23,13 +23,10 @@ function Navbar({ onSearch }) {
           <div className="Navbar--container--leftSide--logo">
             <img src={logo} alt="Logo" />
           </div>
-          <div
-            className="Navbar--container--leftSide--home"
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
-          >
+          <div className="Navbar--container--leftSide--home" onClick={() => navigate("/")}>
             Home
           </div>
+          <div className="Navbar--container--leftSide--newestChap" onClick={() => navigate("/lastedUpdate")}>Newest Chapter</div>
         </div>
 
         <div className="Navbar--container--search">
