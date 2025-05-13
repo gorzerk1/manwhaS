@@ -6,6 +6,7 @@ import Series from './container/Series';
 import ReadChapter from './container/ReadChapter';
 import MainChapter from './components/mainChapter/MainChapter';
 import ScrollChapter from './components/scrollChapter/ScrollChapter';
+import UpdateWeb from './container/UpdateWeb';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <Route path="/series" element={<Series />} />
         <Route path="/readchapter/:mangaName/chapter/:chapterNumber" element={<ReadChapter />} />
         <Route path="/series/:mangaName" element={<Series />} />
-        <Route path="/test" element={<ScrollChapter />} />
+        <Route path="/test" element={<UpdateWeb />} />
       </Routes>
       </BrowserRouter>
     </div>

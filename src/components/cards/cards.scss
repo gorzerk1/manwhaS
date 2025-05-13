@@ -125,26 +125,32 @@
           display: flex;
           justify-content: space-between;
           border-radius: 10px;
-          transition: background-color 1s ease;
           cursor: pointer;
-        
+
+          // Background hover effect
+          background: linear-gradient(to right, $background-secondary 0%, $background-secondary 100%);
+          background-size: 0% 100%;
+          background-repeat: no-repeat;
+          transition: background-size 0.5s ease;
+
           &:hover {
-            background-color: $background-secondary;
+            background-size: 100% 100%;
           }
-        
+
           &_name {
             display: flex;
             justify-content: center;
             align-items: center;
           }
-        
+
           &_timestamps {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right:10px;
+            margin-right: 10px;
           }
         }
+
         
       }
     }

@@ -19,12 +19,10 @@ function Chapter() {
     return cached ? parseInt(cached) : 100;
   });
 
-  const currentChapterKey = `chapter-${chapterNumber}`;
-
   useEffect(() => {
     const fetchChapter = async () => {
       try {
-        const res = await fetch(`/data/jsonFiles/${mangaName}/${currentChapterKey}.json`);
+        const res = await fetch(`/data/jsonFiles/${mangaName}/chapter-${chapterNumber}.json`);
         const data = await res.json();
         setImages(data.images || []);
       } catch (err) {
