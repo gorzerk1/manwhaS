@@ -5,8 +5,6 @@ import FrontPage from './container/FrontPage';
 import Series from './container/Series';
 import ReadChapter from './container/ReadChapter';
 import UpdateWeb from './container/UpdateWeb';
-import Test from './test';
-
 
 function App() {
   return (
