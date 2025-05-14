@@ -104,7 +104,7 @@ function Cards({ searchQuery }) {
       <div className='Cards-title'>Latest Updates</div>
       <div className='Cards-container'>
         {filteredList.map((manga, i) => (
-          <div className='Cards-container-card' key={i}>
+          <div className='Cards-container-card' key={i} style={{ '--delay': `${i * 0.1}s` }}>
             <div
               className='Cards-container-card_picture'
               onClick={() => navigate(`/series/${manga.key}`)}

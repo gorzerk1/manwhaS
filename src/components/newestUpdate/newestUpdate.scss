@@ -53,13 +53,13 @@
         justify-content: center;
         align-items: center;
         width: 90%;
-        height: 8vh;
+        height: 8.4vh;
         color: $color-primary;
         font-weight: bolder;
         font-size: 1.3rem;
-        padding:2px;
+        padding:2px 2px 2px 2px;
         cursor: pointer;
-        
+        box-sizing: border-box;
         
 
         & > * {
