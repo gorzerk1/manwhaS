@@ -6,11 +6,6 @@ function toTitleCase(str) {
   return str.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function getLatestDate(uploadTime = []) {
-  const last = uploadTime[uploadTime.length - 1];
-  return last?.time?.split(" ")[1] || "--";
-}
-
 function MainChapter() {
   const { mangaName } = useParams();
   const navigate = useNavigate();
@@ -19,8 +14,7 @@ function MainChapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://18.102.36.92:4000/data/jsonFiles/${mangaName}/manwhaDescription.json`);
-        
+        const res = await fetch(`http://18.102.36.92:4000/api/description/${mangaName}`);
         const json = await res.json();
         setData(json);
       } catch (err) {
@@ -48,7 +42,7 @@ function MainChapter() {
               <div className="mainChapter-container-body-bodyLeft-boxLeftRight">
                 <div className="mainChapter-container-body-bodyLeft-boxLeftRight-leftSide">
                   <div className="mainChapter-container-body-bodyLeft-boxLeftRight-leftSide_imageLogo">
-                    <img src={`/${data.imagelogo}`} alt="" />
+                    <img src={data.imagelogo} alt="" />
                   </div>
                   <div className="mainChapter-container-body-bodyLeft-boxLeftRight-leftSide_rating">
                     <img src="/fullStar.png" alt="" />
@@ -93,7 +87,7 @@ function MainChapter() {
                     </div>
                     <div>
                       <div>Updated On</div>
-                      <div>{getLatestDate(data.uploadTime)}</div>
+                      <div>{data.updatedOn}</div>
                     </div>
                   </div>
 
@@ -111,7 +105,7 @@ function MainChapter() {
               </div>
             </div>
             <div className="mainChapter-container-body-bodyRight">
-              <img src={`/sideImage/${mangaName}_sideimage.webp`} alt="" />
+              <img src={data.sideImage} alt="" />
             </div>
           </div>
         </div>
