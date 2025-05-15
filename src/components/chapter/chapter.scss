@@ -70,33 +70,39 @@
         
       }
       &_button {
+        width: 200px;
+        height: 5vh;
         display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 20%;
-        height: 90%;
-        &_prev{
-          background-color: $background-primary;
-          width: 80px;
-          height: 40px;
-          border-radius: 20px;
+        justify-content: flex-end;
+        &_box {
+          width: 250px;
+          height: 100%;
           display: flex;
-          justify-content: center;
+          justify-content: space-around;
           align-items: center;
-        }
-        &_next{
-          background-color: $background-primary;
-          width: 80px;
-          height:40px;
-          border-radius: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+            &_prev{
+              background-color: $background-primary;
+              width: 80px;
+              height: 40px;
+              border-radius: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            &_next{
+              background-color: $background-primary;
+              width: 80px;
+              height:40px;
+              border-radius: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
         }
       }
       &_zoom {
         height: 100%;
-        width: 30%;
+        width: 200px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -199,4 +205,51 @@
 
     }
   }
+}
+
+
+@media (max-width: 1200px) {
+  .Chapter {
+    &-container {
+      width: 90%;
+    }
   }
+}
+
+@media (max-width: 660px) {
+  .Chapter {
+    &-container {
+      width: 100%;
+      &-list {
+        &_zoom {
+          display: none;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 425px) {
+  .Chapter {
+    &-container {
+      width: 100%;
+      &-list {
+        flex-wrap: wrap;
+        display: flex;
+      }
+    }
+  }
+}
+
+@media (max-width: 369px) {
+  .Chapter {
+    &-container {
+      width: 100%;
+      &-list {
+        flex-wrap: wrap;
+        height: 15vh;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

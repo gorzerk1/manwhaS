@@ -56,7 +56,6 @@ function MainChapter() {
                     <img src="/fullStar.png" alt="" />
                     <img src="/halfStar.png" alt="" />
                     <div>9/9</div>
-                    <div className="mainChapter-container-body-bodyLeft-boxLeftRight-leftSide_rating_rateButton">Rate</div>
                   </div>
                   <div className="mainChapter-container-body-bodyLeft-boxLeftRight-leftSide_info">
                     <div>Status</div>

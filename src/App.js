@@ -6,6 +6,7 @@ import Series from './container/Series';
 import ReadChapter from './container/ReadChapter';
 import UpdateWeb from './container/UpdateWeb';
 
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
         <Route path="/readchapter/:mangaName/chapter/:chapterNumber" element={<ReadChapter />} />
         <Route path="/series/:mangaName" element={<Series />} />
         <Route path="/lastedUpdate" element={<UpdateWeb />} />
+        <Route path="/test" element={<UpdateWeb />} />
       </Routes>
       </BrowserRouter>
     </div>

@@ -30,11 +30,13 @@
     &-body {
       display: flex;
       justify-content: space-between;
+      height: 63vh;
+      margin-bottom: 3vh;
       &-bodyLeft {
         display: flex;
         flex-direction: column;
         width: 60%;
-        height: 60vh;
+        height: 100%;
         background-color: $background-primary;
         font-size: 0.7rem;
         box-sizing: border-box;
@@ -46,10 +48,10 @@
           display: flex;
   
           &-leftSide {
-            width: 20%;
+            width: 160px;
             display: flex;
             flex-direction: column;
-            gap:10px;
+            justify-content: space-between;
             &_imageLogo {
               width: 100%;
               height: 30vh;
@@ -59,28 +61,17 @@
               }
             }
             &_rating {
-    
+              width: 100%;
               height: 4vh;
               display: flex;
               align-items: center;
               justify-content: center;
               gap:5px;
-              
-              
               img {
                 height: 15px;
                 width: 15px;
               }
-              &_rateButton {
-                width: 50px;
-                height: 30px;
-                background-color: $background-secondary;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 10px;
-                cursor: pointer;
-              }
+
             }
     
             &_info {
@@ -131,11 +122,11 @@
             }
             &_genres {
               font-size: 0.9rem;
+              width: 100%;
               display: flex;
               flex-direction: column;
               gap:10px;
               margin-top:auto;
-              margin-bottom:2px;
               &_boxes {
                 display: flex;
                 gap:10px;
@@ -151,21 +142,21 @@
           }
         }
         &_keywords {
-          height: 4vh;
+          height: 6vh;
           font-size: 0.8rem;
           color: $color-primary;
           background-color: $background-primary;
           display: flex;
           flex-direction: column;
           border-top:1px solid #1d2121;
-          margin-top:6vh;
+          margin-top:3vh;
           display: flex;
-          justify-content: flex-end;
+          justify-content: center;
         }
       }
       &-bodyRight {
         position: relative;
-        height: 60vh;
+        height: 100%;
         width: 39%;
 
         &::before {
@@ -189,5 +180,134 @@
 
     }
 
+  }
+  }
+
+
+
+@media (max-width: 1420px) {
+  .mainChapter {
+  &-container {
+    &-body {
+      &-bodyLeft {
+        &-boxLeftRight {
+          &-rightSide {
+            width: 80%;
+            &_genres {
+              min-height: 7vh;
+              &_boxes {
+                flex-wrap: wrap;
+                & > div {
+                  height: 30px;
+                }
+              }
+            }
+          }
+        }
+        &_keywords {
+          margin-top:1vh;
+        }
+      }
+
+    }
+
+  }
+
+  }
+  }
+@media (max-width: 1040px) {
+  .mainChapter {
+  &-container {
+    &-body {
+      &-bodyRight {
+        display: none;
+      }
+      &-bodyLeft {
+        width: 100%;
+      }
+    }
+
+  }
+
+  }
+}
+
+@media (max-width: 650px) {
+  .mainChapter {
+    width: 100%;
+    height: 77vh;
+    &-container {
+      &-body {
+        &-bodyLeft {
+          height: 68vh;
+        }
+      }
+    }
+  }
+  }
+
+@media (max-width: 430px) {
+  .mainChapter {
+    height: 135vh;
+    &-container {
+      &-body {
+        &-bodyLeft {
+          min-height: 126vh;
+          &-boxLeftRight {
+            flex-direction: column;
+            align-items: center;
+            &-leftSide {
+              width: 100%;
+              justify-content: center;
+              align-items: center;
+              gap:10px;
+              margin-bottom:20px;
+              &_imageLogo {
+                width: 50%;
+                height: 30vh;
+              }
+              &_info {
+                width: 50%;
+                display: flex;
+              }
+            }
+            &-rightSide {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              &_title {
+                display: flex;
+                justify-content: center;
+              }
+              &_description {
+                &_title {
+                  display: flex;
+                  justify-content: center;
+                  margin-bottom:5px;
+                }
+                &_synopsis {
+                  text-align: center;
+                }
+              }
+              &_manwhaDetails {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+              }
+              &_genres {
+                text-align: center;
+                width: 70%;
+                display: flex;
+                &_boxes {
+                  display: flex;
+                  justify-content: center;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
   }

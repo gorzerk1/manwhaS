@@ -15,7 +15,7 @@
       justify-content: space-between;
       align-items: center;
       &--leftSide {
-        width: 25%;
+        width: 40%;
         display: flex;
         align-items: center;
         gap:15px;
@@ -61,3 +61,20 @@
       }
     }
   }
+
+@media (max-width: 940px) {
+  .Navbar {
+        &--container {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &--leftSide {
+          display: none;
+        }
+        &--search {
+          display: none;
+        }
+      }
+    }
+}

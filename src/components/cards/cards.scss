@@ -219,3 +219,49 @@
 }
 
 }
+@media (max-width: 1400px) {
+.Cards {
+width: 80%;
+
+}
+}
+@media (max-width: 1050px) {
+.Cards {
+width: 100%;
+
+}
+}
+
+@media (max-width: 840px) {
+.Cards {
+ &-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+ }
+
+}
+}
+@media (max-width: 840px) {
+.Cards {
+ &-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+ }
+
+}
+}
+@media (max-width: 420px) {
+.Cards {
+ &-container {
+    &-card {
+      &_leftBox {
+        font-size: 0.75rem;
+      }
+  }
+ }
+
+}
+}
+
+
+

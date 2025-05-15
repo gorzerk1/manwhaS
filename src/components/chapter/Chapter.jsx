@@ -138,25 +138,27 @@ function Chapter() {
           )}
 
           <div className="Chapter-container-list_button">
-            <div
-              className="Chapter-container-list_button_prev"
-              onClick={() => {
-                window.location.href = `/readchapter/${mangaName}/chapter/${prev}`;
-              }}
-              style={{ cursor: 'pointer' }}
-            >
-              {`< Prev`}
-            </div>
-            <div
-              className="Chapter-container-list_button_next"
-              onClick={() => {
-                if (next) {
-                  window.location.href = `/readchapter/${mangaName}/chapter/${next}`;
-                }
-              }}
-              style={{ cursor: next ? 'pointer' : 'not-allowed', opacity: next ? 1 : 0.5 }}
-            >
-              {`Next >`}
+            <div className="Chapter-container-list_button_box">
+              <div
+                className="Chapter-container-list_button_box_prev"
+                onClick={() => {
+                  window.location.href = `/readchapter/${mangaName}/chapter/${prev}`;
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                {`< Prev`}
+              </div>
+              <div
+                className="Chapter-container-list_button_box_next"
+                onClick={() => {
+                  if (next) {
+                    window.location.href = `/readchapter/${mangaName}/chapter/${next}`;
+                  }
+                }}
+                style={{ cursor: next ? 'pointer' : 'not-allowed', opacity: next ? 1 : 0.5 }}
+              >
+                {`Next >`}
+              </div>
             </div>
           </div>
         </div>

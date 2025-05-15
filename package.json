@@ -38,6 +38,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000"
+  "proxy": "http://18.102.36.92:4000"
 
 }

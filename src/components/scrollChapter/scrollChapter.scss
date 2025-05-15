@@ -104,3 +104,48 @@
     
   }
   }
+
+  
+@media (max-width: 650px) {
+  .scrollChapter {
+    width: 100%;
+    min-height: 100vh;
+    &-container {
+      &_title {
+        text-align: center;
+      }
+
+      
+      
+    }
+  }
+
+}
+
+@media (max-width: 480px) {
+  .scrollChapter {
+    &-container {
+      &_chapterButton {
+        display: flex;
+        justify-content: center;
+        gap:5%;
+        width: 100%;
+        & > div {
+          background-color: $background-thirdy;
+          border-radius: 10px;
+          width: 40%;
+          height: 12vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-size: 1rem;
+        }
+      }
+
+      
+      
+    }
+  }
+
+}
