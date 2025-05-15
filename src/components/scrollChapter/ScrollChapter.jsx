@@ -16,7 +16,7 @@ function ScrollChapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://server.manhwawut.online//data/jsonFiles/${mangaName}/manwhaDescription.json`);
+        const res = await fetch(`https://server.manhwawut.online/data/jsonFiles/${mangaName}/manwhaDescription.json`);
         const json = await res.json();
         setData(json);
       } catch (err) {

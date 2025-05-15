@@ -22,7 +22,7 @@ function Chapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://server.manhwawut.online//api/chapter-data/${mangaName}/${chapterNumber}`);
+        const res = await fetch(`https://server.manhwawut.online/api/chapter-data/${mangaName}/${chapterNumber}`);
         const data = await res.json();
         setImages(data.images || []);
         setChapters(data.chapters || []);

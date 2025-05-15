@@ -9,7 +9,7 @@ function Cards({ searchQuery }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://server.manhwawut.online//api/latest-updates");
+        const res = await fetch("https://server.manhwawut.online/api/latest-updates");
         const data = await res.json();
         setMangaList(data);
       } catch (err) {
@@ -35,7 +35,7 @@ function Cards({ searchQuery }) {
               onClick={() => navigate(`/series/${manga.key}`)}
               style={{ cursor: 'pointer' }}
             >
-              <img src={`https://server.manhwawut.online//${manga.image}`} alt={manga.title} />
+              <img src={`https://server.manhwawut.online/${manga.image}`} alt={manga.title} />
             </div>
             <div className='Cards-container-card_leftBox'>
               <div
