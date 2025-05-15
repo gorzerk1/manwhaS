@@ -37,6 +37,11 @@ function NewestUpdate() {
     const [d, mo, y] = dmy.split('/');
     return new Date(Date.UTC(+y, +mo - 1, +d, +h, +m));
   };
+  const formatManwhaName = (name) =>
+    name
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 
   return (
     <div className="NewestUpdate">
@@ -61,7 +66,7 @@ function NewestUpdate() {
                     className="NewestUpdate-container-newestChap_Chap_image"
                     style={{ backgroundImage: `url("${chap.image}")` }}
                   ></div>
-                  <div className="NewestUpdate-container-newestChap_Chap_manwhaName">{chap.manwhaName}</div>
+                  <div className="NewestUpdate-container-newestChap_Chap_manwhaName">{formatManwhaName(chap.manwhaName)}</div>
                   <div className="NewestUpdate-container-newestChap_Chap_chapter">{chap.chapter}</div>
                   <div className="NewestUpdate-container-newestChap_Chap_timeStamps">
                     {formatTimeAgo(chap.time)}

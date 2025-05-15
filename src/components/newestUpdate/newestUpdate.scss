@@ -50,7 +50,7 @@
       &_Chap {
         position: relative;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         width: 90%;
         height: 8.4vh;
@@ -64,12 +64,17 @@
 
         & > * {
           position: relative;
-          width: 33%;
+          width: 20%;
           display: flex;
           justify-content: center;
           z-index: 2;
         }
-
+        &_manwhaName {
+          width: 300px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         &::before,
         &::after {
           content: '';
@@ -168,9 +173,10 @@
         & .borderLine {
           position: absolute;
           border:4px solid $color-primary;
-          width: 99.2%;
-          height: 7.6vh;
+          width: 100%;
+          height: 100%;
           z-index: 0;
+          box-sizing: border-box;
         }
       }
 
@@ -178,3 +184,57 @@
 
   } 
 }
+
+@media (max-width: 1120px) {
+  .NewestUpdate{
+    &-container {
+      width: 90%;
+
+    }
+  }
+
+}
+
+
+@media (max-width: 1120px) {
+  .NewestUpdate{
+    &-container {
+      width: 90%;
+
+    }
+  }
+
+}
+
+@media (max-width: 750px) {
+  .NewestUpdate{
+    &-container {
+      width: 100%;
+      &_title {
+        font-size: 1.5rem;
+      }
+      &-newestChap {
+        &_Chap {
+          height: 20vh;
+          flex-direction: column;
+          font-size: 1rem;
+            &_manwhaName {
+              width: 300px;
+              font-size: 1.2rem;
+
+            }
+            &_chapter {
+              width: 200px;
+
+            }
+            &_timeStamps {
+              width: 200px;
+
+            }
+          }
+      }
+    }
+  }
+
+}
+
