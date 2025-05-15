@@ -30,6 +30,9 @@
       justify-content: center;
       gap:5%;
       width: 100%;
+
+
+
       & > div {
         background-color: $background-thirdy;
         border-radius: 10px;
@@ -40,7 +43,102 @@
         justify-content: center;
         align-items: center;
         font-size: 1.7rem;
+        overflow: hidden;
+        -webkit-animation: bounce-top 1s both;
+        animation: bounce-top 1s both;
+        animation-delay: var(--delay);
+
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          height: 10px;
+          background: $background-secondary;
+          transition: 0.1s ease-out;
+        }
+
+        &::before {
+        position: absolute;
+        inset: 0;
+        background-color: $background-secondary;
+        z-index: 1;
+        right: 100%;
+        transition-delay: 0s;
+        height: 4px;
+        }
+
+        &::after {
+          bottom: 0;
+          left: 100%;
+          right: 0;
+          transition-delay: 0.2s;
+          height: 4px;
+        }
+
+        .border-right,
+        .border-left {
+          position: absolute;
+          background: $background-secondary;
+          z-index: 1;
+          transition: 0.1s ease-out;
+          
+        }
+
+        .border-right {
+          width: 4px;
+          height: 0;
+          top: 0;
+          bottom: 100%;
+          right: 0;
+          transition-delay: 0.1s;
+          z-index: 1;
+        }
+
+        .border-left {
+          width: 4px;
+          top: 100%;
+          bottom: 0;
+          left: 0;
+          transition-delay: 0.3s;
+        }
+
+        // hover animate in (Top → Right → Bottom → Left)
+        &:hover::before {
+          right: 0;
+        }
+
+        &:hover .border-right {
+          bottom: 0;
+          height: 100%;
+        }
+
+        &:hover::after {
+          left: 0;
+        }
+
+        &:hover .border-left {
+          top: 0;
+        }
+
+        // unhover animate out (Left → Bottom → Right → Top)
+        &:not(:hover) .border-left {
+          transition-delay: 0s;
+        }
+
+        &:not(:hover)::after {
+          transition-delay: 0.1s;
+        }
+
+        &:not(:hover) .border-right {
+          transition-delay: 0.2s;
+        }
+
+        &:not(:hover)::before {
+          transition-delay: 0.3s;
+        }
+
       }
+
     }
     &_searchBox{
       width: 84.7%;

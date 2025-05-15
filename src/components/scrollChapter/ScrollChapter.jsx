@@ -61,14 +61,19 @@ function ScrollChapter() {
         <div className="scrollChapter-container_title">{title}'s Chapters</div>
 
         <div className="scrollChapter-container_chapterButton">
-          <div onClick={() => navigate(`/readchapter/${mangaName}/chapter/${firstChapter}`)} style={{ cursor: 'pointer' }}>
+          <div onClick={() => navigate(`/readchapter/${mangaName}/chapter/${firstChapter}`)} style={{ cursor: 'pointer' }} className="scrollChapter-container_chapterButton_firstChap">
             <div>First Chapter</div>
             <div>Chapter {firstChapter}</div>
+            <div className="border-right"></div>
+            <div className="border-left"></div>
           </div>
-          <div onClick={() => navigate(`/readchapter/${mangaName}/chapter/${lastChapter}`)} style={{ cursor: 'pointer' }}>
+          <div onClick={() => navigate(`/readchapter/${mangaName}/chapter/${lastChapter}`)} style={{ cursor: 'pointer' }} className="scrollChapter-container_chapterButton_lastChap">
             <div>Last Chapter</div>
             <div>Chapter {lastChapter}</div>
+            <div className="border-right"></div>
+            <div className="border-left"></div>
           </div>
+
         </div>
 
         <div className="scrollChapter-container_searchBox">

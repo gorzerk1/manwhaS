@@ -19,40 +19,43 @@ function Chapter() {
     return cached ? parseInt(cached) : 100;
   });
 
-  useEffect(() => {
-    const fetchChapter = async () => {
-      try {
-        const res = await fetch(`/data/jsonFiles/${mangaName}/chapter-${chapterNumber}.json`);
-        const data = await res.json();
-        setImages(data.images || []);
-      } catch (err) {
-        console.error("❌ Failed to fetch chapter JSON", err);
-      }
-    };
+useEffect(() => {
+  const backendBaseURL = 'http://18.102.36.92:4000';
 
-    const fetchChapterList = async () => {
-      try {
-        const res = await fetch(`/data/jsonFiles/${mangaName}/manwhaDescription.json`);
-        const data = await res.json();
-        const chapterList = (data.uploadTime || [])
-          .filter(entry => entry.chapter)
-          .map(entry => `chapter-${entry.chapter}`);
-        setChapters(chapterList.reverse());
-        setMaxChapter(data.chaptersAmount || null);
-      } catch (err) {
-        console.error("❌ Failed to fetch chapter list", err);
-      }
-    };
+  const fetchChapter = async () => {
+    try {
+      const res = await fetch(`${backendBaseURL}/data/jsonFiles/${mangaName}/chapter-${chapterNumber}.json`);
+      const data = await res.json();
+      setImages(data.images || []);
+    } catch (err) {
+      console.error("❌ Failed to fetch chapter JSON", err);
+    }
+  };
 
-    const handleScroll = () => {
-      setShowScrollUp(window.scrollY > 1200);
-    };
+  const fetchChapterList = async () => {
+    try {
+      const res = await fetch(`${backendBaseURL}/data/jsonFiles/${mangaName}/manwhaDescription.json`);
+      const data = await res.json();
+      const chapterList = (data.uploadTime || [])
+        .filter(entry => entry.chapter)
+        .map(entry => `chapter-${entry.chapter}`);
+      setChapters(chapterList.reverse());
+      setMaxChapter(data.chaptersAmount || null);
+    } catch (err) {
+      console.error("❌ Failed to fetch chapter list", err);
+    }
+  };
 
-    fetchChapter();
-    fetchChapterList();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [mangaName, chapterNumber]);
+  const handleScroll = () => {
+    setShowScrollUp(window.scrollY > 1200);
+  };
+
+  fetchChapter();
+  fetchChapterList();
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [mangaName, chapterNumber]);
+
 
   const current = parseInt(chapterNumber);
   const prev = Math.max(1, current - 1);
