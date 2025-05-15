@@ -5,7 +5,6 @@ import './newestUpdate.scss';
 function NewestUpdate() {
   const [chapters, setChapters] = useState([]);
   const navigate = useNavigate();
-
   useEffect(() => {
     fetch('http://18.102.36.92:4000/api/filtered-manwhas')
       .then(res => res.json())
