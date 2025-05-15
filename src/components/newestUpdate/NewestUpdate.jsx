@@ -6,7 +6,7 @@ function NewestUpdate() {
   const [chapters, setChapters] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch('http://18.102.36.92:4000/api/filtered-manwhas')
+    fetch('https://manhwawut.online//api/filtered-manwhas')
       .then(res => res.json())
       .then(data => setChapters(data))
       .catch(err => console.error('fetch error:', err));
