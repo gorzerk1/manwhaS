@@ -16,7 +16,7 @@ function ScrollChapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/data/jsonFiles/${mangaName}/manwhaDescription.json`);
+        const res = await fetch(`http://18.102.36.92:4000/data/jsonFiles/${mangaName}/manwhaDescription.json`);
         const json = await res.json();
         setData(json);
       } catch (err) {

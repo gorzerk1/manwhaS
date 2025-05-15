@@ -57,7 +57,7 @@ function Cards({ searchQuery }) {
       const list = await Promise.all(
         folders.map(async (folder) => {
           try {
-            const res = await fetch(`/data/jsonFiles/${folder}/manwhaDescription.json`);
+            const res = await fetch(`http://18.102.36.92:4000/data/jsonFiles/${folder}/manwhaDescription.json`);
             const data = await res.json();
             const chapters = (data.uploadTime || [])
               .filter(c => c.chapter && c.time)
@@ -78,7 +78,7 @@ function Cards({ searchQuery }) {
             return {
               key: folder,
               title: toTitleCase(data.name || folder),
-              image: `/${data.imagelogo}`,
+              image: `${backendBaseURL}/${data.imagelogo}`,
               chapters,
               latestTimestamp
             };
@@ -95,6 +95,7 @@ function Cards({ searchQuery }) {
 
     fetchData();
   }, []);
+
 
   const filteredList = mangaList.filter((m) =>
     m.title.toLowerCase().includes(searchQuery.toLowerCase())
