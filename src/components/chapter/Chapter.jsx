@@ -20,41 +20,25 @@ function Chapter() {
   });
 
 useEffect(() => {
-  const backendBaseURL = 'http://18.102.36.92:4000';
-
-  const fetchChapter = async () => {
+  const fetchData = async () => {
     try {
-      const res = await fetch(`${backendBaseURL}/data/jsonFiles/${mangaName}/chapter-${chapterNumber}.json`);
+      const res = await fetch(`http://18.102.36.92:4000/api/chapter-data/${mangaName}/${chapterNumber}`);
       const data = await res.json();
       setImages(data.images || []);
+      setChapters(data.chapters || []);
+      setMaxChapter(data.maxChapter || null);
     } catch (err) {
-      console.error("❌ Failed to fetch chapter JSON", err);
+      console.error("❌ Failed to fetch chapter data", err);
     }
   };
 
-  const fetchChapterList = async () => {
-    try {
-      const res = await fetch(`${backendBaseURL}/data/jsonFiles/${mangaName}/manwhaDescription.json`);
-      const data = await res.json();
-      const chapterList = (data.uploadTime || [])
-        .filter(entry => entry.chapter)
-        .map(entry => `chapter-${entry.chapter}`);
-      setChapters(chapterList.reverse());
-      setMaxChapter(data.chaptersAmount || null);
-    } catch (err) {
-      console.error("❌ Failed to fetch chapter list", err);
-    }
-  };
+  const handleScroll = () => setShowScrollUp(window.scrollY > 1200);
 
-  const handleScroll = () => {
-    setShowScrollUp(window.scrollY > 1200);
-  };
-
-  fetchChapter();
-  fetchChapterList();
+  fetchData();
   window.addEventListener("scroll", handleScroll);
   return () => window.removeEventListener("scroll", handleScroll);
 }, [mangaName, chapterNumber]);
+
 
 
   const current = parseInt(chapterNumber);
