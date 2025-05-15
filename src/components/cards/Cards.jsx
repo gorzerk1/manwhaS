@@ -78,7 +78,7 @@ function Cards({ searchQuery }) {
             return {
               key: folder,
               title: toTitleCase(data.name || folder),
-              image: `${backendBaseURL}/${data.imagelogo}`,
+              image: `${"http://18.102.36.92:4000"}/${data.imagelogo}`,
               chapters,
               latestTimestamp
             };
