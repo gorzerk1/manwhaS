@@ -14,7 +14,7 @@ function MainChapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://manhwawut.online//api/description/${mangaName}`);
+        const res = await fetch(`https://server.manhwawut.online//api/description/${mangaName}`);
         const json = await res.json();
         setData(json);
       } catch (err) {
