@@ -83,17 +83,15 @@ function Chapter() {
         <div className="Chapter-container-title">
           {capitalizeTitle(mangaName)}
         </div>
-      <div className="Chapter-container-tree">
-        <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</a>
-        {' > '}
-        <a
-          href={`/series/${mangaName}`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
-        >
-          {capitalizeTitle(mangaName)}
-        </a>
-        {` > Chapter ${chapterNumber}`}
-      </div>
+        <div className="Chapter-container-tree">
+          <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</a>
+          <span>&nbsp;&gt;&nbsp;</span>
+          <a href={`/series/${mangaName}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            {capitalizeTitle(mangaName)}
+          </a>
+          <span>&nbsp;&gt;&nbsp;</span>
+          {`Chapter ${chapterNumber}`}
+        </div>
 
 
         <div className="Chapter-container-list">
