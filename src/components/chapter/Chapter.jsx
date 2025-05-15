@@ -19,27 +19,25 @@ function Chapter() {
     return cached ? parseInt(cached) : 100;
   });
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const res = await fetch(`http://18.102.36.92:4000/api/chapter-data/${mangaName}/${chapterNumber}`);
-      const data = await res.json();
-      setImages(data.images || []);
-      setChapters(data.chapters || []);
-      setMaxChapter(data.maxChapter || null);
-    } catch (err) {
-      console.error("❌ Failed to fetch chapter data", err);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`http://18.102.36.92:4000/api/chapter-data/${mangaName}/${chapterNumber}`);
+        const data = await res.json();
+        setImages(data.images || []);
+        setChapters(data.chapters || []);
+        setMaxChapter(data.maxChapter || null);
+      } catch (err) {
+        console.error("❌ Failed to fetch chapter data", err);
+      }
+    };
 
-  const handleScroll = () => setShowScrollUp(window.scrollY > 1200);
+    const handleScroll = () => setShowScrollUp(window.scrollY > 1200);
 
-  fetchData();
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, [mangaName, chapterNumber]);
-
-
+    fetchData();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mangaName, chapterNumber]);
 
   const current = parseInt(chapterNumber);
   const prev = Math.max(1, current - 1);
@@ -102,7 +100,8 @@ useEffect(() => {
                     key={chap}
                     className="Chapter-container-list_chapterList_dropdown_item"
                     onClick={() => {
-                      window.location.href = `/readchapter/${mangaName}/chapter/${chap.replace("chapter-", "")}`;
+                      const chapNum = chap.replace("chapter-", "");
+                      window.location.href = `/readchapter/${mangaName}/chapter/${chapNum}`;
                     }}
                   >
                     {chap.replace("chapter-", "Chapter ")}
@@ -128,9 +127,7 @@ useEffect(() => {
             <div className="Chapter-container-list_button_box">
               <div
                 className="Chapter-container-list_button_box_prev"
-                onClick={() => {
-                  window.location.href = `/readchapter/${mangaName}/chapter/${prev}`;
-                }}
+                onClick={() => window.location.href = `/readchapter/${mangaName}/chapter/${prev}`}
                 style={{ cursor: 'pointer' }}
               >
                 {`< Prev`}
