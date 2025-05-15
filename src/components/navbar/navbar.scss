@@ -64,16 +64,26 @@
 
 @media (max-width: 940px) {
   .Navbar {
-        &--container {
+      &--container {
         width: 90%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        &--leftSide {
-          display: none;
-        }
+      }
+    }
+}
+
+@media (max-width: 630px) {
+  .Navbar {
+      &--container {
         &--search {
           display: none;
+        }
+        &--leftSide {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
