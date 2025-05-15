@@ -7,7 +7,8 @@ function getTimeAgo(timeString) {
   const [time, date] = timeString.split(' ');
   const [hour, minute] = time.split(':').map(Number);
   const [day, month, year] = date.split('/').map(Number);
-  const chapterDate = new Date(year, month - 1, day, hour, minute);
+  const chapterDate = new Date(year, month - 1, day, hour + 3, minute);
+
   const now = new Date();
 
   const diffMs = now - chapterDate;
