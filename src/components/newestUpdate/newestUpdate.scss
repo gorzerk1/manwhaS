@@ -70,7 +70,7 @@
           z-index: 2;
         }
         &_manwhaName {
-          width: 300px;
+          width: 410px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -185,7 +185,7 @@
   } 
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1200px) {
   .NewestUpdate{
     &-container {
       width: 90%;
@@ -196,17 +196,7 @@
 }
 
 
-@media (max-width: 1120px) {
-  .NewestUpdate{
-    &-container {
-      width: 90%;
-
-    }
-  }
-
-}
-
-@media (max-width: 750px) {
+@media (max-width: 830px) {
   .NewestUpdate{
     &-container {
       width: 100%;
