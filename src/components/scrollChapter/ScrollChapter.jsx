@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { MyContext } from '../../data/ThemeProvider';
 import "./scrollChapter.scss";
 
 function toTitleCase(str) {
@@ -7,6 +8,7 @@ function toTitleCase(str) {
 }
 
 function ScrollChapter() {
+  const { API_BASE } = useContext(MyContext);
   const scrollRef = useRef(null);
   const { mangaName } = useParams();
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ function ScrollChapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://server.manhwawut.online/data/jsonFiles/${mangaName}/manwhaDescription.json`);
+        const res = await fetch(`${API_BASE}/data/jsonFiles/${mangaName}/manwhaDescription.json`);
         const json = await res.json();
         setData(json);
       } catch (err) {
@@ -24,7 +26,7 @@ function ScrollChapter() {
       }
     };
     fetchData();
-  }, [mangaName]);
+  }, [API_BASE, mangaName]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -61,19 +63,26 @@ function ScrollChapter() {
         <div className="scrollChapter-container_title">{title}'s Chapters</div>
 
         <div className="scrollChapter-container_chapterButton">
-          <div onClick={() => navigate(`/readchapter/${mangaName}/chapter/${firstChapter}`)} style={{ cursor: 'pointer' }} className="scrollChapter-container_chapterButton_firstChap">
+          <div
+            onClick={() => navigate(`/readchapter/${mangaName}/chapter/${firstChapter}`)}
+            style={{ cursor: 'pointer' }}
+            className="scrollChapter-container_chapterButton_firstChap"
+          >
             <div>First Chapter</div>
             <div>Chapter {firstChapter}</div>
             <div className="border-right"></div>
             <div className="border-left"></div>
           </div>
-          <div onClick={() => navigate(`/readchapter/${mangaName}/chapter/${lastChapter}`)} style={{ cursor: 'pointer' }} className="scrollChapter-container_chapterButton_lastChap">
+          <div
+            onClick={() => navigate(`/readchapter/${mangaName}/chapter/${lastChapter}`)}
+            style={{ cursor: 'pointer' }}
+            className="scrollChapter-container_chapterButton_lastChap"
+          >
             <div>Last Chapter</div>
             <div>Chapter {lastChapter}</div>
             <div className="border-right"></div>
             <div className="border-left"></div>
           </div>
-
         </div>
 
         <div className="scrollChapter-container_searchBox">

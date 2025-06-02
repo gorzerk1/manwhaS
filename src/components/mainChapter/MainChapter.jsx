@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { MyContext } from '../../data/ThemeProvider';
 import "./mainChapter.scss";
 
 function toTitleCase(str) {
@@ -7,6 +8,7 @@ function toTitleCase(str) {
 }
 
 function MainChapter() {
+  const { API_BASE } = useContext(MyContext);
   const { mangaName } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
@@ -14,7 +16,7 @@ function MainChapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://server.manhwawut.online/api/description/${mangaName}`);
+        const res = await fetch(`${API_BASE}/api/description/${mangaName}`);
         const json = await res.json();
         setData(json);
       } catch (err) {
@@ -23,7 +25,7 @@ function MainChapter() {
     };
 
     fetchData();
-  }, [mangaName]);
+  }, [API_BASE, mangaName]);
 
   if (!data) return <div className="mainChapter">Loading...</div>;
 

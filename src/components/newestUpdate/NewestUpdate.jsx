@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../../data/ThemeProvider';
 import './newestUpdate.scss';
 
 function NewestUpdate() {
+  const { API_BASE } = useContext(MyContext);
   const [chapters, setChapters] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
-    fetch('https://server.manhwawut.online/api/filtered-manwhas')
+    fetch(`${API_BASE}/api/filtered-manwhas`)
       .then(res => res.json())
       .then(data => setChapters(data))
       .catch(err => console.error('fetch error:', err));
-  }, []);
+  }, [API_BASE]);
 
   return (
     <div className="NewestUpdate">

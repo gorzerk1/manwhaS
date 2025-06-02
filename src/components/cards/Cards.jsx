@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../../data/ThemeProvider';
 import './cards.scss';
 
 function Cards({ searchQuery }) {
   const navigate = useNavigate();
+  const { API_BASE } = useContext(MyContext);
   const [mangaList, setMangaList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://server.manhwawut.online/api/latest-updates");
+        const res = await fetch(`${API_BASE}/api/latest-updates`);
         const data = await res.json();
         setMangaList(data);
       } catch (err) {
@@ -18,7 +20,7 @@ function Cards({ searchQuery }) {
     };
 
     fetchData();
-  }, []);
+  }, [API_BASE]);
 
   const filteredList = mangaList.filter((m) =>
     m.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -35,7 +37,7 @@ function Cards({ searchQuery }) {
               onClick={() => navigate(`/series/${manga.key}`)}
               style={{ cursor: 'pointer' }}
             >
-              <img src={`https://server.manhwawut.online/${manga.image}`} alt={manga.title} />
+              <img src={`${API_BASE}/${manga.image}`} alt={manga.title} />
             </div>
             <div className='Cards-container-card_leftBox'>
               <div

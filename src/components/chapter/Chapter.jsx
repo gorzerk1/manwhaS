@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { MyContext } from '../../data/ThemeProvider';
 import "./chapter.scss";
 
 function capitalizeTitle(title) {
@@ -8,6 +9,7 @@ function capitalizeTitle(title) {
 }
 
 function Chapter() {
+  const { API_BASE } = useContext(MyContext);
   const { mangaName, chapterNumber } = useParams();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [images, setImages] = useState([]);
@@ -22,7 +24,7 @@ function Chapter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://server.manhwawut.online/api/chapter-data/${mangaName}/${chapterNumber}`);
+        const res = await fetch(`${API_BASE}/api/chapter-data/${mangaName}/${chapterNumber}`);
         const data = await res.json();
         setImages(data.images || []);
         setChapters(data.chapters || []);
@@ -37,7 +39,7 @@ function Chapter() {
     fetchData();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [mangaName, chapterNumber]);
+  }, [API_BASE, mangaName, chapterNumber]);
 
   const current = parseInt(chapterNumber);
   const prev = Math.max(1, current - 1);
@@ -92,7 +94,6 @@ function Chapter() {
           <span>&nbsp;&gt;&nbsp;</span>
           {`Chapter ${chapterNumber}`}
         </div>
-
 
         <div className="Chapter-container-list">
           <div
