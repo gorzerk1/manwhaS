@@ -14,6 +14,7 @@ function Cards({ searchQuery }) {
         const res = await fetch(`${API_BASE}/api/latest-updates`);
         const data = await res.json();
         setMangaList(data);
+        console.log(data)
       } catch (err) {
         console.error("❌ Failed to fetch latest updates", err);
       }
@@ -25,7 +26,7 @@ function Cards({ searchQuery }) {
   const filteredList = mangaList.filter((m) =>
     m.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  
   return (
     <div className="Cards">
       <div className='Cards-title'>Latest Updates</div>
