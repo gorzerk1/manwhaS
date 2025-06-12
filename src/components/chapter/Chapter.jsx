@@ -15,16 +15,15 @@ function Chapter() {
   const [images, setImages] = useState([]);
   const [chapters, setChapters] = useState([]);
   const [showScrollUp, setShowScrollUp] = useState(false);
+  const [showBottomButtons, setShowBottomButtons] = useState(false); // ✅ new
   const [maxChapter, setMaxChapter] = useState(null);
   const [zoom, setZoom] = useState(() => {
     const cached = localStorage.getItem("zoomLevel");
     return cached ? parseInt(cached) : 100;
   });
 
-  // 🔁 NEW: track how many images loaded
-  const [loadedCount, setLoadedCount] = useState(0);
+  const [loadedCount, setLoadedCount] = useState(0); // ✅ image load tracker
 
-  // 🔁 dropdown scroll control
   const dropdownContainerRef = useRef(null);
   const currentChapterRef = useRef(null);
 
@@ -42,14 +41,17 @@ function Chapter() {
       }
     };
 
-    const handleScroll = () => setShowScrollUp(window.scrollY > 1200);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setShowScrollUp(y > 1200);
+      setShowBottomButtons(y > 1200); // ✅ hide bottom buttons until scrolled down
+    };
 
     fetchData();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [API_BASE, mangaName, chapterNumber]);
 
-  // ✅ only scroll dropdown
   useEffect(() => {
     if (dropdownOpen && dropdownContainerRef.current && currentChapterRef.current) {
       const container = dropdownContainerRef.current;
@@ -180,7 +182,7 @@ function Chapter() {
           </div>
         </div>
 
-        {/* ✅ IMAGES LOADING SEQUENTIALLY */}
+        {/* ✅ SEQUENTIAL IMAGE LOADING */}
         <div className="Chapter-container-images">
           {images.map((src, i) => {
             if (i > loadedCount) return null;
@@ -196,28 +198,31 @@ function Chapter() {
           })}
         </div>
 
-        <div className="Chapter-container-list_buttonBottom">
-          <div className="Chapter-container-list_buttonBottom_box">
-            <div
-              className="Chapter-container-list_buttonBottom_box_prev"
-              onClick={() => window.location.href = `/readchapter/${mangaName}/chapter/${prev}`}
-              style={{ cursor: 'pointer' }}
-            >
-              {`< Prev`}
-            </div>
-            <div
-              className="Chapter-container-list_buttonBottom_box_next"
-              onClick={() => {
-                if (next) {
-                  window.location.href = `/readchapter/${mangaName}/chapter/${next}`;
-                }
-              }}
-              style={{ cursor: next ? 'pointer' : 'not-allowed', opacity: next ? 1 : 0.5 }}
-            >
-              {`Next >`}
+        {/* ✅ SHOW BOTTOM BUTTONS ONLY AFTER SCROLL */}
+        {showBottomButtons && (
+          <div className="Chapter-container-list_buttonBottom">
+            <div className="Chapter-container-list_buttonBottom_box">
+              <div
+                className="Chapter-container-list_buttonBottom_box_prev"
+                onClick={() => window.location.href = `/readchapter/${mangaName}/chapter/${prev}`}
+                style={{ cursor: 'pointer' }}
+              >
+                {`< Prev`}
+              </div>
+              <div
+                className="Chapter-container-list_buttonBottom_box_next"
+                onClick={() => {
+                  if (next) {
+                    window.location.href = `/readchapter/${mangaName}/chapter/${next}`;
+                  }
+                }}
+                style={{ cursor: next ? 'pointer' : 'not-allowed', opacity: next ? 1 : 0.5 }}
+              >
+                {`Next >`}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
