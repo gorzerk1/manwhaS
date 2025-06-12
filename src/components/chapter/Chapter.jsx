@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { MyContext } from '../../data/ThemeProvider';
 import "./chapter.scss";
@@ -21,6 +21,13 @@ function Chapter() {
     return cached ? parseInt(cached) : 100;
   });
 
+  // 🔁 NEW: track how many images loaded
+  const [loadedCount, setLoadedCount] = useState(0);
+
+  // 🔁 dropdown scroll control
+  const dropdownContainerRef = useRef(null);
+  const currentChapterRef = useRef(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,6 +36,7 @@ function Chapter() {
         setImages(data.images || []);
         setChapters(data.chapters || []);
         setMaxChapter(data.maxChapter || null);
+        setLoadedCount(0); // reset on chapter change
       } catch (err) {
         console.error("❌ Failed to fetch chapter data", err);
       }
@@ -40,6 +48,15 @@ function Chapter() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [API_BASE, mangaName, chapterNumber]);
+
+  // ✅ only scroll dropdown
+  useEffect(() => {
+    if (dropdownOpen && dropdownContainerRef.current && currentChapterRef.current) {
+      const container = dropdownContainerRef.current;
+      const item = currentChapterRef.current;
+      container.scrollTop = item.offsetTop;
+    }
+  }, [dropdownOpen]);
 
   const current = parseInt(chapterNumber);
   const prev = Math.max(1, current - 1);
@@ -102,19 +119,27 @@ function Chapter() {
           >
             {`Chapter ${chapterNumber}`}
             {dropdownOpen && (
-              <div className="Chapter-container-list_chapterList_dropdown">
-                {chapters.map(chap => (
-                  <div
-                    key={chap}
-                    className="Chapter-container-list_chapterList_dropdown_item"
-                    onClick={() => {
-                      const chapNum = chap.replace("chapter-", "");
-                      window.location.href = `/readchapter/${mangaName}/chapter/${chapNum}`;
-                    }}
-                  >
-                    {chap.replace("chapter-", "Chapter ")}
-                  </div>
-                ))}
+              <div
+                className="Chapter-container-list_chapterList_dropdown"
+                ref={dropdownContainerRef}
+                style={{ maxHeight: '300px', overflowY: 'auto' }}
+              >
+                {chapters.map(chap => {
+                  const chapNum = chap.replace("chapter-", "");
+                  const isCurrent = chapNum === chapterNumber;
+                  return (
+                    <div
+                      key={chap}
+                      ref={isCurrent ? currentChapterRef : null}
+                      className="Chapter-container-list_chapterList_dropdown_item"
+                      onClick={() => {
+                        window.location.href = `/readchapter/${mangaName}/chapter/${chapNum}`;
+                      }}
+                    >
+                      {chap.replace("chapter-", "Chapter ")}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -155,39 +180,44 @@ function Chapter() {
           </div>
         </div>
 
+        {/* ✅ IMAGES LOADING SEQUENTIALLY */}
         <div className="Chapter-container-images">
-          {images.map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`Page ${i + 1}`}
-              style={{ width: `${zoom}%` }}
-            />
-          ))}
+          {images.map((src, i) => {
+            if (i > loadedCount) return null;
+            return (
+              <img
+                key={i}
+                src={src}
+                alt={`Page ${i + 1}`}
+                style={{ width: `${zoom}%` }}
+                onLoad={() => setLoadedCount(c => c + 1)}
+              />
+            );
+          })}
         </div>
 
         <div className="Chapter-container-list_buttonBottom">
-            <div className="Chapter-container-list_buttonBottom_box">
-              <div
-                className="Chapter-container-list_buttonBottom_box_prev"
-                onClick={() => window.location.href = `/readchapter/${mangaName}/chapter/${prev}`}
-                style={{ cursor: 'pointer' }}
-              >
-                {`< Prev`}
-              </div>
-              <div
-                className="Chapter-container-list_buttonBottom_box_next"
-                onClick={() => {
-                  if (next) {
-                    window.location.href = `/readchapter/${mangaName}/chapter/${next}`;
-                  }
-                }}
-                style={{ cursor: next ? 'pointer' : 'not-allowed', opacity: next ? 1 : 0.5 }}
-              >
-                {`Next >`}
-              </div>
+          <div className="Chapter-container-list_buttonBottom_box">
+            <div
+              className="Chapter-container-list_buttonBottom_box_prev"
+              onClick={() => window.location.href = `/readchapter/${mangaName}/chapter/${prev}`}
+              style={{ cursor: 'pointer' }}
+            >
+              {`< Prev`}
+            </div>
+            <div
+              className="Chapter-container-list_buttonBottom_box_next"
+              onClick={() => {
+                if (next) {
+                  window.location.href = `/readchapter/${mangaName}/chapter/${next}`;
+                }
+              }}
+              style={{ cursor: next ? 'pointer' : 'not-allowed', opacity: next ? 1 : 0.5 }}
+            >
+              {`Next >`}
             </div>
           </div>
+        </div>
       </div>
     </div>
   );
